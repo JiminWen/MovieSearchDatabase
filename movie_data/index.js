@@ -6,6 +6,7 @@ var cheerio = require('cheerio');
 var app     = express();
 
 var titles = [];
+var title;
 
 app.get('/', function(req, res){
 
@@ -24,6 +25,7 @@ app.get('/', function(req, res){
 
             
             $('.lister-item-header').filter(function(){
+                
 
            // Let's store the data we filter into a variable so we can easily see what's going on.
 
@@ -32,18 +34,15 @@ app.get('/', function(req, res){
            // In examining the DOM we notice that the title rests within the first child element of the header tag. 
            // Utilizing jQuery we can easily navigate and get the text by writing the following code:
                 
-                var title = data.children().eq(1).text();
+            title = data.children().eq(1).text();
                 
-                
-           // Once we have our title, we'll store it to the our json object.
 
-                titles.push(title);
-                console.log(title);
+            imdb.get(title, {apiKey: 'd299ec6d', timeout: 3000}).then(console.log).catch(console.log); 
             })
         }
+
+        
     })
-  //  imdb.get('The Toxic Avenger', {apiKey: 'foo', timeout: 30}).then(console.log);
-imdb.get('Batman Begins', {apiKey: 'd299ec6d', timeout: 3000}).then(console.log).catch(console.log);
 })
 
 

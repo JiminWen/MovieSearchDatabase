@@ -1,0 +1,48 @@
+Movie {
+*  id: 1,
+*  title: 'Batman Begins',
+//_year_data: '2005',
+  year: 2005,
+  rated: 'PG-13',
+*  released: 2005-06-15T00:00:00.000Z,
+  runtime: '152 min',
+  genres: 'Action, Adventure',
+*  director: 'Christopher Nolan',
+  writer: 'Bob Kane (characters), David S. Goyer (story), Christopher Nolan (screenplay), David S. Goyer (screenplay)',
+* actors: 'Christian Bale, Michael Caine, Liam Neeson, Katie Holmes',
+  plot: 'When his parents are killed, billionaire playboy Bruce Wayne relocates to Asia where he is mentored by Henri Ducard and Ra\'s Al Ghul in how to fight evil. When learning about the plan to wipe out evil in Gotham City by Ducard, Bruce prevents this plan from getting any further and heads back to his home. Back in his original surroundings, Bruce adopts the image of a bat to strike fear into the criminals and the corrupt as the icon known as \'Batman\'. But it doesn\'t stay quiet for long.',
+*  languages: 'English, Urdu, Mandarin',
+  country: 'USA, UK',
+  awards: 'Nominated for 1 Oscar. Another 14 wins & 71 nominations.',
+*  poster: 'https://images-na.ssl-images-amazon.com/images/M/MV5BNTM3OTc0MzM2OV5BMl5BanBnXkFtZTYwNzUwMTI3._V1_SX300.jpg',
+  ratings: 
+   [ { Source: 'Internet Movie Database', Value: '8.3/10' },
+     { Source: 'Rotten Tomatoes', Value: '84%' },
+     { Source: 'Metacritic', Value: '70/100' } ],
+  metascore: '70',
+*  rating: '8.3',
+  votes: '1,073,720',
+  imdbid: 'tt0372784',
+  type: 'movie',
+  dvd: '18 Oct 2005',
+  boxoffice: '$204,100,000',
+  production: 'Warner Bros. Pictures',
+  website: 'http://www.batmanbegins.com/',
+  response: 'True',
+  series: false,
+  imdburl: 'https://www.imdb.com/title/tt0372784' }
+  
+  
+ director{
+ id
+ name
+ movies
+ }
+ 
+ languages{
+ id
+ name
+ movies
+ }
+ 
+ 

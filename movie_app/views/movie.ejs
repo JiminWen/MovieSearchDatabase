@@ -1,0 +1,35 @@
+<% include partials/header %>
+<h2>imdb hot movies</h2>
+<%= result.length %>
+<center>
+<div class="container">
+<div class="table-responsive">  
+<table class="table table-striped">
+<tr>
+    <td>#</td>
+    <td>title</td>
+    <td>year</td>
+    <td>rank</td>
+</tr>    
+<%  for(var i=0; (i<result.length) && (i<100); i++)  {%>
+<tr>
+    <td>
+    <%=  result[i].id  %>
+    </td>
+    <td>
+    <a href=<%=  result[i].link  %>
+    ><%=  result[i].title  %></a>
+    </td>
+    <td>
+    <%=  result[i].year  %>
+    </td>
+    <td>
+    <%=  result[i].score  %>
+    </td>
+</tr>    
+<%  } %>   
+</table>
+</div>  
+</div>    
+</center>
+<% include partials/footer %>
