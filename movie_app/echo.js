@@ -23,14 +23,14 @@ con.connect(function(err) {
         res.render("index");
     });
 
-    
+
     app.get("/movies", function(req, res) {
         var cur_number = 1;
         var cur_items = 50;
         var order_item = "movie.id";
         var order = "asc";
         var page = { number: cur_number, items_per_page: cur_items, order_item: order_item, order: order };
-        var selected = ["movie.id", "movie.title", "movie.year", "movie.score", "movie.link", "director.director_name", "group_concat(actor.actor_name order by actor.id)"];
+        var selected = ["movie.id", "movie.title", "movie.year", "movie.score", "movie.link", "director.director_name", "group_concat(actor.actor_name order by actor.id) as list"];
         var new_select = [];
         var select_string = "";
         console.log(selected);
@@ -81,19 +81,20 @@ con.connect(function(err) {
         con.query(sql, function(err, result) {
             if (err) throw err;
             console.log("query " + sql + " succeeded");
-            console.log(result.length);
+            console.log(result[0]);
             res.render("movies", { page: page, result: result });
         });
     });
 });
 
 
-var cur_number = 1;
-var cur_items = 50;
-var order_item = "actor.id";
-var order = "asc";
-var page = { number: cur_number, items_per_page: cur_items, order_item: order_item, order: order };
+
 app.get("/actors", function(req, res) {
+    var cur_number = 1;
+    var cur_items = 50;
+    var order_item = "actor.id";
+    var order = "asc";
+    var page = { number: cur_number, items_per_page: cur_items, order_item: order_item, order: order };
     console.log(req.query);
     if (!empty(req.query)) {
         order = req.query.order;
@@ -116,12 +117,13 @@ app.get("/actors", function(req, res) {
     });
 });
 
-var cur_number = 1;
-var cur_items = 50;
-var order_item = "director.id";
-var order = "asc";
-var page = { number: cur_number, items_per_page: cur_items, order_item: order_item, order: order };
+
 app.get("/directors", function(req, res) {
+    var cur_number = 1;
+    var cur_items = 50;
+    var order_item = "director.id";
+    var order = "asc";
+    var page = { number: cur_number, items_per_page: cur_items, order_item: order_item, order: order };
     if (!empty(req.query)) {
         order = req.query.order;
         order_item = req.query.order_item;
