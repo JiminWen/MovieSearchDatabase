@@ -1,4 +1,129 @@
 <% include partials/header %>
-<h2>imdb actors</h2>
+<center><h1>idmb directors</h1>
+<div class="container">
+<a href="/" role="button" class="btn btn-primary btn-lg">Home</a>
+<a href="/movies" role="button" class="btn btn-primary btn-lg">Movies</a>
+<a href="/actors" role="button" class="btn btn-primary btn-lg">Actors</a>
+</div>
+
+<div class="container-fluid">
+<div class="table-responsive">  
+<table class="table table-striped">
+<tbody class="reactable-data">   
+<thead>
+<tr class="reactable-column-header">
+    <td id="number" class="target">#</td>
+    <td id="name" class="target">name</td>
+    <td id="facebook" class="target">facebook likes</td>
+    <td id="movies" class="target">movies directed</td>
+    <td id="actors" class="target">actors coorporated</td>
+</tr>    
+</thead>
+<%  for(var i=0; (i<result.length) && (i<50); i++)  {%>
+<tr>
+    <td>
+    <%=  result[i].id  %>
+    </td>
+    <td>
+    <%=  result[i].director_name  %>
+    </td>
+    <td>
+    <%=  result[i].directo_facebook_likes  %>
+    </td>
+    <td>
+    <%=  result[i].movies  %>
+    </td>
+    <td>
+    <%=  result[i].actors %>
+    </td>
+</tr>    
+<%  } %>   
+</tbody> 
+<tbody class="reactable-pagination">
+<tr>
+   <td colspan=<%= page.items_per_page%>><span class="row-selector"><select
+		class="form-control"><option value="20">20</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+			<option value="9007199254740991">all</option></select> <!-- react-text: 1523 -->rows
+		per page.<!-- /react-text --></span><span class="pagination-buttons"><a
+		class="reactable-previous-page" href="#page-6">Previous</a><a
+		class="reactable-page-button" href="#page-3">3</a><a
+		class="reactable-page-button" href="#page-4">4</a><a
+		class="reactable-page-button" href="#page-5">5</a><a
+		class="reactable-page-button" href="#page-6">6</a><a
+		class="reactable-page-button reactable-current-page" href="#page-7">7</a></span>
+</td>
+    
+</tr>    
+</tbody>
+</table>
+</div>  
+</div>    
+</center>
+
+ <script>
+    function changeRank(item){
+        var order_item, order;
+        order_item="<%= page.order_item %>";
+        order="<%= page.order%>";
+        if(order_item == item) {
+            if(order == "asc") {
+                order = "desc";
+            }
+            else {
+                order = "asc";
+            }
+        }
+        else {
+            order_item = item;
+            order = "asc";
+        }
+        var direct="/directors?order_item="+order_item+"&order="+order;
+        console.log(direct);
+        $(location).attr('href', direct);
+    }
+ 
+    $(document).ready(function(){
+    $("#number").click(function(){
+        changeRank("director.id");
+    });
+    });
+    
+    $(document).ready(function(){
+    $("#name").click(function(){
+        changeRank("director.director_name");
+    });
+    });
+    
+    $(document).ready(function(){
+    $("#facebook").click(function(){
+        changeRank("director.directo_facebook_likes");
+    });
+    });
+    
+    $(document).ready(function(){
+    $("#movies").click(function(){
+        changeRank("movie.id");
+    });
+    });
+    
+    $(document).ready(function(){
+    $("#actors").click(function(){
+        changeRank("actor.id");
+    });
+    });
+    
+    
+    $(document).ready(function(){
+    $(".target").mouseover(function() {
+    $(this).css('cursor','pointer');
+    })
+    $(".target").mouseout(function() {
+    $(this).css('cursor','pointer');
+    });
+    });
+    
+</script>
 
 <% include partials/footer %>

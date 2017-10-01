@@ -7,11 +7,47 @@
 <a href="/actors" role="button" class="btn btn-primary btn-lg">Actors</a>
 <a href="/directors" role="button" class="btn btn-primary btn-lg">Directors</a>
 </div>
+
+<form action="/movies" method="get" id="selecting">
+<div class="form-check form-check-inline">
+  <label class="form-check-label active">
+    <input type="checkbox" value="chosen" name="number"> #
+  </label>
+</div>
+<div class="form-check form-check-inline">
+  <label class="form-check-label active">
+    <input type="checkbox" value="chosen" name="title"> title
+  </label>
+</div>
+<div class="form-check form-check-inline">
+  <label class="form-check-label active">
+    <input type="checkbox" value="chosen" name="year"> year
+  </label>
+</div>
+<div class="form-check form-check-inline">
+  <label class="form-check-label active">
+    <input type="checkbox" value="chosen" name="rank"> rank
+  </label>
+</div>
+<div class="form-check form-check-inline">
+  <label class="form-check-label active">
+    <input type="checkbox" value="chosen" name="director"> director
+  </label>
+</div>
+<div class="form-check form-check-inline">
+  <label class="form-check-label active">
+    <input type="checkbox" value="chosen" name="actor"> actor
+  </label>
+</div>
+<button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+
 <div class="container-fluid">
 <div class="table-responsive">  
 <table class="table table-striped">
-<tbody class="reactable-data">   
-<thead>
+  
+<thead class="thead-inverse">
 <tr class="reactable-column-header">
     <td id="number" class="target">#</td>
     <td id="title" class="target">title</td>
@@ -21,6 +57,7 @@
     <td id="actors" class="target">actors</td>
 </tr>    
 </thead>
+<tbody class="reactable-data"> 
 <%  for(var i=0; (i<result.length) && (i<50); i++)  {%>
 <tr>
     <td>
@@ -45,24 +82,7 @@
 </tr>    
 <%  } %>   
 </tbody> 
-<tbody class="reactable-pagination">
-<tr>
-   <td colspan=<%= page.items_per_page%>><span class="row-selector"><select
-		class="form-control"><option value="20">20</option>
-			<option value="50">50</option>
-			<option value="100">100</option>
-			<option value="9007199254740991">all</option></select> <!-- react-text: 1523 -->rows
-		per page.<!-- /react-text --></span><span class="pagination-buttons"><a
-		class="reactable-previous-page" href="#page-6">Previous</a><a
-		class="reactable-page-button" href="#page-3">3</a><a
-		class="reactable-page-button" href="#page-4">4</a><a
-		class="reactable-page-button" href="#page-5">5</a><a
-		class="reactable-page-button" href="#page-6">6</a><a
-		class="reactable-page-button reactable-current-page" href="#page-7">7</a></span>
-</td>
-    
-</tr>    
-</tbody>
+
 </table>
 </div>  
 </div>    
