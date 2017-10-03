@@ -14,15 +14,10 @@
   </div>
 </nav>
 
-
-
 <center>
 <br>
 <br>
 <h2>imdb hot movies</h2>
-
-
-
 
 <div class="container">
 <form action="/movies" method="get" id="selecting">
@@ -61,6 +56,7 @@ Select content to be shown
     <td id="rank" class="target">rank</td>
     <td id="director" class="target">director</td>
     <td id="actors" class="target">actors</td>
+    <td id="operate" class="target">imdb page</td>
 </tr>    
 </thead>
 <tbody class="reactable-data"> 
@@ -70,8 +66,7 @@ Select content to be shown
     <%=  result[i].id  %>
     </td>
     <td>
-    <a href=<%=  result[i].link  %>
-    ><%=  result[i].title  %></a>
+    <a href="/movies/<%= result[i].id  %>"><%=  result[i].title  %></a>
     </td>
     <td>
     <%=  result[i].year  %>
@@ -84,6 +79,10 @@ Select content to be shown
     </td>
     <td>
     <%=  result[i].list %>
+    </td>
+    <td>
+     <a href=<%=  result[i].link  %>
+    >link</a>
     </td>
 </tr>    
 <%  } %>   

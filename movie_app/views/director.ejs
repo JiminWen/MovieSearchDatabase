@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>imdb database</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/navbar-fixed-side.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   
+  </head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">imdb database</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="/movies">Movies</a></li>
+        <li><a href="/actors">Actors</a></li>
+        <li><a href="/directors">Directors</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br>
+<br>
+
+<h1>idmb directors</h1>
+
+<div class="container-fluid">
+<div class="table-responsive">  
+<table class="table table-striped">
+<tbody class="reactable-data">   
+<thead>
+<tr class="reactable-column-header">
+    <td id="number" class="target">#</td>
+    <td id="name" class="target">name</td>
+    <td id="facebook" class="target">facebook likes</td>
+    <td id="movies" class="target">movies directed</td>
+    <td id="actors" class="target">actors coorporated</td>
+</tr>    
+</thead>
+<tr>
+    <td>
+    <%=  result[0].id  %>
+    </td>
+    <td>
+    <a href="/directors/<%= result[0].id %>"><%=  result[0].director_name  %></a>
+    </td>
+    <td>
+    <%=  result[0].directo_facebook_likes  %>
+    </td>
+    <td>
+    <%=  result[0].movies  %>
+    </td>
+    <td>
+    <%=  result[0].actors %>
+    </td>
+</tr>    
+</tbody> 
+
+</table>
+</div>  
+</div>    
+
+<button type="button" class="btn btn-default" id="delete">Delete</button>
+
+<form action="/movies/<%= result[0].id %>/edit" method="get" id="edit">
+<button type="submit" class="btn btn-default">Update</button>
+</form>
+
+<script>
+  $(document).ready(function(){
+    $("#delete").click(function(){
+    $.post({
+    type: "DELETE",
+    url: "/directors/<%= result[0].id %>",
+    data: "name=someValue",
+    success: function(data) {
+        window.location=data;
+    },
+    error: function(error) {
+        console.log(error);
+    }
+    });
+    });
+    });
+ 
+  
+  
+</script>
+<% include partials/footer %>

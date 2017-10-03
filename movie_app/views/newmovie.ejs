@@ -1,0 +1,70 @@
+<% include partials/header %>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">imdb database</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="/movies">Movies</a></li>
+        <li><a href="/actors">Actors</a></li>
+        <li><a href="/directors">Directors</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br>
+<br>
+<h3>Create a new movie<h3>
+
+
+<div class="container">
+<div class="col-md-5">
+    <div class="form-area">  
+        <form action="/" method="post" id="create">
+        <br style="clear:both">
+    				<div class="form-group">
+						<input type="text" class="form-control" id="name" name="Title" placeholder="Movie title" >
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="email" name="Year" placeholder="Year" >
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="mobile" name="Score" placeholder="Score" >
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="subject" name="Link" placeholder="imdb link" >
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="subject" name="Director" placeholder="Director name" >
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="subject" name="Director_facebook_likes" placeholder="Director facebook_likes" >
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="subject" name="Actor1_name" placeholder="Actor name" >
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="subject" name="Actor1_facebook_likes" placeholder="Actor facebook_likes" >
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="subject" name="Actor2_name" placeholder="Actor name" >
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="subject" name="Actor2_facebook_likes" placeholder="Actor facebook_likes" >
+					</div>
+                    <div class="form-group">
+						<input type="text" class="form-control" id="subject" name="Actor3_name" placeholder="Actor name" >
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="subject" name="Actor3_facebook_likes" placeholder="Actor facebook_likes" >
+					</div>
+        <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
+        </form>
+    </div>
+</div>
+</div>
+
+
+<% include partials/footer %>

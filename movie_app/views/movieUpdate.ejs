@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>imdb database</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/navbar-fixed-side.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   
+  </head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">imdb database</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="/movies">Movies</a></li>
+        <li><a href="/actors">Actors</a></li>
+        <li><a href="/directors">Directors</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br>
+<br>      
+<h2>Movie update</h2>
+
+
+
+<div class="container">
+<div class="col-md-5">
+    <div class="form-area">  
+        <form action="/movies/<%= movie[0].id %>?_method=PUT" method="POST" id="create">
+        <br style="clear:both">
+    				<div class="form-group">
+    				    <label>Movie title</label>
+						<input type="text" class="form-control" id="name" name="Title" placeholder="<%= movie[0].title %>" value="<%= movie[0].title %>" >
+					</div>
+					<div class="form-group">
+					    <label>Year</label>
+						<input type="text" class="form-control" id="email" name="Year" placeholder="<%= movie[0].year %>" value="<%= movie[0].year %>" >
+					</div>
+					<div class="form-group">
+					    <label>Score</label>
+						<input type="text" class="form-control" id="mobile" name="Score" placeholder="<%= movie[0].score %>" value="<%= movie[0].score %>" >
+					</div>
+					<div class="form-group">
+					    <label>imdb link</label>
+						<input type="text" class="form-control" id="subject" name="Link" placeholder="<%= movie[0].link %>" value="<%= movie[0].link %>" >
+					</div>
+					
+					<div class="form-group">
+					<label>Director name</label>
+					<select id="select_director" name="director1" value="<%= movie[0].director_name %>">
+						<% for(var i=0;i<director.length;i++){ %>
+						<option value="<%= director[i].director_name %>"><%= director[i].director_name %></option>
+						<% } %>
+					</select>
+					</div>
+					
+					<div class="form-group">
+					<label>Actor 1 name</label>
+					<select id="select_director" name="actor1" value="<%= movie[0].list[0] %>">
+						<% for(var i=0;i<actor.length;i++){ %>
+						<option value="<%= actor[i].actor_name %>"><%= actor[i].actor_name %></option>
+						<% } %>
+					</select>
+					</div>
+					
+					<div class="form-group">
+					<label>Actor 2 name</label>
+					<select id="select_director" name="actor2" value="<%= movie[0].list[0] %>">
+						<% for(var i=0;i<actor.length;i++){ %>
+						<option value="<%= actor[i].actor_name %>"><%= actor[i].actor_name %></option>
+						<% } %>
+					</select>
+					</div>
+					
+					<div class="form-group">
+					<label>Actor 3 name</label>
+					<select id="select_director" name="actor3" value="<%= movie[0].list[0] %>">
+						<% for(var i=0;i<actor.length;i++){ %>
+						<option value="<%= actor[i].actor_name %>"><%= actor[i].actor_name %></option>
+						<% } %>
+					</select>
+					</div>
+
+        <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
+        </form>
+    </div>
+</div>
+</div>
+
+<script>
+// var arr = ;
+// var sel = $('#select_director').appendTo('body');
+// $(arr).each(function() {
+//  sel.append($("<option>").attr('value',this.director_name).text(this.director_name));
+// });
+// $('#select_director').each(function(){
+//     $this.append('<option value=" + $(this).text() + '</option>');
+// });    
+    
+    
+</script>
