@@ -1,4 +1,15 @@
-<% include partials/header %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>imdb database</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/navbar-fixed-side.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   
+  </head>
+<body>
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -15,50 +26,67 @@
   </div>
 </nav>
 <br>
-<br>
-<h3>Create a new movie<h3>
+<br>      
+<h2>New movie</h2>
+
 
 
 <div class="container">
 <div class="col-md-5">
     <div class="form-area">  
-        <form action="/" method="post" id="create">
+        <form action="/movies" method="POST" id="create">
         <br style="clear:both">
     				<div class="form-group">
-						<input type="text" class="form-control" id="name" name="Title" placeholder="Movie title" >
+    				    <label>Movie title</label>
+						<input type="text" class="form-control" id="name" name="Title" placeholder="" value="" >
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="email" name="Year" placeholder="Year" >
+					    <label>Year</label>
+						<input type="text" class="form-control" id="email" name="Year" placeholder="" value="" >
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="mobile" name="Score" placeholder="Score" >
+					    <label>Score</label>
+						<input type="text" class="form-control" id="mobile" name="Score" placeholder="" value="" >
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="subject" name="Link" placeholder="imdb link" >
+					    <label>imdb link</label>
+						<input type="text" class="form-control" id="subject" name="Link" placeholder="" value="" >
+					</div>
+					
+					<div class="form-group">
+    				    <label>Director</label>
+						<input type="text" class="form-control" id="name" name="Director" placeholder="" value="" >
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="subject" name="Director" placeholder="Director name" >
+					    <label>Director facebook</label>
+						<input type="text" class="form-control" id="email" name="Director_facebook" placeholder="" value="" >
+					</div>
+					
+					<div class="form-group">
+    				    <label>Actor 1</label>
+						<input type="text" class="form-control" id="name" name="Actor1" placeholder="" value="" >
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="subject" name="Director_facebook_likes" placeholder="Director facebook_likes" >
+					    <label>Actor1 facebook</label>
+						<input type="text" class="form-control" id="email" name="Actor1_facebook" placeholder="" value="" >
+					</div>
+					
+					<div class="form-group">
+    				    <label>Actor2</label>
+						<input type="text" class="form-control" id="name" name="Actor2" placeholder="" value="" >
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="subject" name="Actor1_name" placeholder="Actor name" >
+					    <label>Actor2 facebook</label>
+						<input type="text" class="form-control" id="email" name="Actor2_facebook" placeholder="" value="" >
+					</div>
+					
+					<div class="form-group">
+    				    <label>Actor3</label>
+						<input type="text" class="form-control" id="name" name="Actor3" placeholder="" value="" >
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="subject" name="Actor1_facebook_likes" placeholder="Actor facebook_likes" >
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" id="subject" name="Actor2_name" placeholder="Actor name" >
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" id="subject" name="Actor2_facebook_likes" placeholder="Actor facebook_likes" >
-					</div>
-                    <div class="form-group">
-						<input type="text" class="form-control" id="subject" name="Actor3_name" placeholder="Actor name" >
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" id="subject" name="Actor3_facebook_likes" placeholder="Actor facebook_likes" >
+					    <label>Actor3 facebook</label>
+						<input type="text" class="form-control" id="email" name="Actor3_facebook" placeholder="" value="" >
 					</div>
         <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
         </form>
@@ -66,5 +94,15 @@
 </div>
 </div>
 
-
-<% include partials/footer %>
+<script>
+// var arr = ;
+// var sel = $('#select_director').appendTo('body');
+// $(arr).each(function() {
+//  sel.append($("<option>").attr('value',this.director_name).text(this.director_name));
+// });
+// $('#select_director').each(function(){
+//     $this.append('<option value=" + $(this).text() + '</option>');
+// });    
+    
+    
+</script>

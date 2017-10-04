@@ -16,7 +16,8 @@ var con = mysql.createConnection({
     host: ip,
     user: "jiminwen",
     password: "",
-    database: "c9"
+    database: "c9",
+    multipleStatements: true
 });
 
 app.use(express.static("public"));
@@ -29,6 +30,70 @@ con.connect(function(err) {
 
 app.get("/", function(req, res) {
     res.render("index");
+});
+
+
+app.get("/movies/new", function(req, res) {
+    var sql = "select director_name from director";
+    con.query(sql, function(err, result) {
+        if (err) throw err;
+        console.log("query " + sql + " succeeded");
+        var director = result;
+        console.log(director[0]);
+        var sql2 = "select actor_name from actor;";
+        con.query(sql2, function(err, result) {
+            if (err) throw err;
+            console.log("query " + sql + " succeeded");
+            var actor = result;
+            res.render("newmovie", { director: director, actor: actor });
+        });
+
+    });
+});
+
+app.post("/movies", function(req, res) {
+    var body = req.body;
+    console.log(req.body);
+    console.log("===========")
+    console.log(req.body);
+    var sql1 = "select id from movie order by id desc limit 1;select id from actor order by id desc limit 1;select id from director order by id desc limit 1";
+    console.log(sql1);
+    con.query(sql1, function(err, result) {
+        if (err) throw err;
+        console.log("query " + sql1 + " succeeded");
+        var id = result[0][0].id + 1;
+        var id1 = result[1][0].id + 1;
+        var id2 = result[2][0].id + 1;
+        console.log(result);
+        console.log(id);
+        console.log("actor id:" + id1);
+        var sql2 = "INSERT INTO movie(id,title,year,score,link,director_id) VALUES (" + id + ",'" + body.Title + "'," + body.Year + "," + body.Score + ",'" + body.Link + "'," +
+            id2 + ");";
+        console.log(sql2);
+        con.query(sql2, function(err, result) {
+            if (err) throw err;
+            console.log("query " + sql2 + " succeeded");
+            var sql3 = "INSERT INTO director(id,director_name,directo_facebook_likes) VALUES (" + id + ",'" + body.Director + "'," + body.Director_facebook + ");";
+            console.log(sql3);
+            con.query(sql3, function(err, result) {
+                if (err) throw err;
+                console.log("query " + sql3 + " succeeded");
+                var sql4 = "INSERT INTO actor(id,actor_name,facebook_likes) VALUES (" + id1 + ",'" + body.Actor1 + "'," + body.Actor1_facebook + ");" +
+                    "INSERT INTO actor(id,actor_name,facebook_likes) VALUES (" + (id1 + 1) + ",'" + body.Actor2 + "'," + body.Actor2_facebook + ");" +
+                    "INSERT INTO actor(id,actor_name,facebook_likes) VALUES (" + (id1 + 2) + ",'" + body.Actor3 + "'," + body.Actor3_facebook + ");" +
+                    "INSERT INTO movie_actor_relation(actor_id,movie_id) VALUES (" + id1 + "," + id + ");" +
+                    "INSERT INTO movie_actor_relation(actor_id,movie_id) VALUES (" + (id1 + 1) + "," + id + ");" +
+                    "INSERT INTO movie_actor_relation(actor_id,movie_id) VALUES (" + (id1 + 2) + "," + id + ");";
+                console.log(sql4);
+                con.query(sql4, function(err, result) {
+                    if (err) throw err;
+                    console.log("query " + sql4 + " succeeded");
+                    res.redirect("/movies");
+                });
+            });
+        });
+    });
+
 });
 
 
@@ -77,10 +142,10 @@ app.get("/movies", function(req, res) {
     }
     select_string = selected.join();
     console.log(select_string);
-    var sql = "select " + select_string + " from movie inner join director on movie.director_id = director.id " +
+    var sql = "select " + select_string + " from movie left join director on movie.director_id = director.id " +
         "inner join movie_actor_relation on movie.id=movie_actor_relation.movie_id " +
         "inner join actor on movie_actor_relation.actor_id=actor.id group by movie.id order by " + order_item + " " + order;
-
+    console.log(sql);
     con.query(sql, function(err, result) {
         if (err) throw err;
         console.log("query " + sql + " succeeded");
@@ -117,7 +182,6 @@ app.get("/actors", function(req, res) {
     });
 });
 
-
 app.get("/directors", function(req, res) {
     var cur_number = 1;
     var cur_items = 50;
@@ -144,7 +208,6 @@ app.get("/directors", function(req, res) {
         res.render("directors", { page: page, result: result });
     });
 });
-
 
 app.get("/movies/:id", function(req, res) {
     console.log(req.params);
@@ -226,17 +289,51 @@ app.get("/movies/:id/edit", function(req, res) {
 
 app.get("/actors/:id/edit", function(req, res) {
     console.log(req.params);
-    res.render("actorUpdate");
+    var sql = "select actor.id, actor.actor_name, actor.facebook_likes, " +
+        "group_concat(movie.title order by movie.id) as movies, " +
+        "group_concat(director.director_name order by director.id) as directors from actor " +
+        "inner join movie_actor_relation on actor.id=movie_actor_relation.actor_id " +
+        "inner join movie on movie_actor_relation.movie_id = movie.id " +
+        "inner join director on movie.director_id=director.id group by actor.id having actor.id=" + req.params.id + ";";
+    con.query(sql, function(err, result) {
+        if (err) throw err;
+        console.log("query " + sql + " succeeded");
+        var actor = result;
+        console.log(actor[0]);
+        var sql2 = "select title from movie;";
+        con.query(sql2, function(err, result) {
+            if (err) throw err;
+            console.log("query " + sql2 + " succeeded");
+            var movie = result;
+            console.log(movie[0]);
+            res.render("actorUpdate", { movie: movie, actor: actor });
+        });
+    });
 });
 
 app.get("/directors/:id/edit", function(req, res) {
+    var id = req.params.id;
     console.log(req.params);
-    res.render("directorUpdate");
-});
-
-
-app.get("/movies/new", function(req, res) {
-    res.render("newmovie");
+    var sql = "select director.id, director.director_name, director.directo_facebook_likes, group_concat(movie.title order by movie.id) as movies," +
+        " group_concat(actor.actor_name order by actor.id) as actors " +
+        "from director inner join movie on director.id=movie.director_id " +
+        "inner join movie_actor_relation on movie.id=movie_actor_relation.movie_id " +
+        "inner join actor on movie_actor_relation.actor_id=actor.id " +
+        "group by director.id having director.id=" + id + " ";
+    con.query(sql, function(err, result) {
+        if (err) throw err;
+        console.log("query " + sql + " succeeded");
+        var director = result;
+        console.log(director[0]);
+        var sql2 = "select title from movie;";
+        con.query(sql2, function(err, result) {
+            if (err) throw err;
+            console.log("query " + sql2 + " succeeded")
+            var movie = result;
+            console.log(director[0]);
+            res.render("directorUpdate", { movie: movie, director: director });
+        });
+    });
 });
 
 app.delete("/movies/:id", function(req, res) {
@@ -282,35 +379,50 @@ app.delete("/directors/:id", function(req, res) {
 
 });
 
-let maxId;
-app.post("/", function(req, res) {
-    console.log(req.body);
-    var findMaxMovieId = "select id from movie order by id desc limit 1";
-    con.query(findMaxMovieId, function(err, result) {
-        if (err) throw err;
-        console.log("query " + findMaxMovieId + " succeeded");
-        console.log(result);
-        maxId = result[0].id + 1;
-    });
-    console.log("are you kidding");
-
-    var insertMovie = "INSERT INTO movie(id,title,year,score,link,director_id) VALUES (" +
-        parseInt(maxId) + "," + req.body.Title + "," + parseInt(req.body.Year) + "," +
-        Number(req.body.Score) + "," + req.body.Link +
-        ");";
-    console.log(insertMovie);
-    con.query(insertMovie, function(err, result) {
-        if (err) throw err;
-        console.log("query " + insertMovie + " succeeded");
-    });
-    res.render("index");
-});
 
 app.put("/movies/:id", function(req, res) {
     var id = req.params.id;
+    var body = req.body;
     console.log(req.body);
     console.log(id);
-    res.redirect("/movies/"+id);
+    var sql = "update movie set title='" + body.Title + "', year=" + body.Year + ",score=" + body.Score + ",link='" + body.Link +
+        "',director_id=" + " (select id from director where director_name='" + body.director1 + "' limit 1) where id=" + id;
+    console.log(sql);
+    con.query(sql, function(err, result) {
+        if (err) throw err;
+        console.log("query " + sql + " succeeded");
+        res.redirect("/movies/" + id);
+
+    });
+});
+
+app.put("/actors/:id", function(req, res) {
+    var id = req.params.id;
+    var body = req.body;
+    console.log(req.body);
+    console.log(id);
+    var sql = "update actor set actor_name='" + body.name + "', facebook_likes=" + body.facebook_likes + " where id=" + id + ";update movie_actor_relation set movie_id=(select id from movie where title = '" + body.movie + "' limit 1) where " +
+        "actor_id=" + id;
+    console.log(sql);
+    con.query(sql, function(err, result) {
+        if (err) throw err;
+        console.log("query " + sql + " succeeded");
+        res.redirect("/actors/" + id);
+    });
+});
+
+app.put("/directors/:id", function(req, res) {
+    var id = req.params.id;
+    var body = req.body;
+    console.log(req.body);
+    console.log(id);
+    var sql = "update director set director_name='" + body.name + "', directo_facebook_likes=" + body.facebook_likes + " where id=" + id + ";";
+    console.log(sql);
+    con.query(sql, function(err, result) {
+        if (err) throw err;
+        console.log("query " + sql + " succeeded");
+        res.redirect("/directors/" + id);
+    });
 });
 
 app.listen(process.env.PORT, process.env.IP, function() {
