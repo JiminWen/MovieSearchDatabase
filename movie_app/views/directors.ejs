@@ -19,6 +19,30 @@
 
 <center><h1>idmb directors</h1>
 
+<div class="container">
+<form action="/directors" method="get" id="selecting">
+Select content to be shown
+  <label class="checkbox-inline">
+    <input type="checkbox" value="chosen" name="number"> #
+  </label>
+  <label class="checkbox-inline">
+    <input type="checkbox" value="chosen" name="name"> name
+  </label>
+  <label class="checkbox-inline">
+    <input type="checkbox" value="chosen" name="facebook_likes"> facebook_likes
+  </label>
+  <label class="checkbox-inline">
+    <input type="checkbox" value="chosen" name="movies"> movie directed
+  </label>
+  <label class="checkbox-inline">
+    <input type="checkbox" value="chosen" name="actors"> actors coorporated
+  </label>
+<button type="submit" class="btn btn-default">Refresh</button>
+</form>
+</div>
+
+<a class="btn btn-primary" href="/movies/new" role="button">Add new tuple</a>
+
 <div class="container-fluid">
 <div class="table-responsive">  
 <table class="table table-striped">

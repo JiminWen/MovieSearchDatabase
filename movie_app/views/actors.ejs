@@ -17,6 +17,29 @@
 <br>
 <center>
 <h2>imdb actors</h2>
+
+<div class="container">
+<form action="/actors" method="get" id="selecting">
+Select content to be shown
+  <label class="checkbox-inline">
+    <input type="checkbox" value="chosen" name="number"> #
+  </label>
+  <label class="checkbox-inline">
+    <input type="checkbox" value="chosen" name="name"> name
+  </label>
+  <label class="checkbox-inline">
+    <input type="checkbox" value="chosen" name="facebook_likes"> facebook_likes
+  </label>
+  <label class="checkbox-inline">
+    <input type="checkbox" value="chosen" name="movie_attended"> movie attended
+  </label>
+  <label class="checkbox-inline">
+    <input type="checkbox" value="chosen" name="director"> director
+  </label>
+<button type="submit" class="btn btn-default">Refresh</button>
+</form>
+</div>
+<a class="btn btn-primary" href="/movies/new" role="button">Add new tuple</a>
 <center>
     
 <div class="container-fluid">
