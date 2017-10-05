@@ -62,7 +62,7 @@ Select content to be shown
 </tr>    
 </thead>
 <tbody class="reactable-data"> 
-<%  for(var i=0; (i<result.length) && (i<50); i++)  {%>
+<%  for(var i=50*(page.number-1); (i<result.length) && (i<50*page.number); i++)  {%>
 <tr>
     <td>
     <%=  result[i].id  %>
@@ -93,8 +93,42 @@ Select content to be shown
 </table>
 </div>  
 </div>    
+
+<div class="btn-group ">
+  <a class="btn btn-primary" id="previous">Previous page</a>
+  <a class="btn btn-primary" id="next">Next page</a>
+</div>
+
 </center>
- <script>
+<script>
+    $(document).ready(function(){
+    $("#previous").click(function(){
+    var page;
+    if( <%= page.number %> > 1){  
+    page = <%= page.number  %> - 1;  
+    }
+    else {
+    page = 1;
+    }
+    var direct="/movies?page="+page;
+    $(location).attr('href', direct);
+  });
+  });
+    
+    $(document).ready(function(){
+    $("#next").click(function(){
+    var page;
+    if( <%= page.number %> < <%= result.length/50 + 1 %>) {  
+    page = <%= page.number  %> + 1;  
+    }
+    else {
+    page = result.length/50 + 1;
+    }
+    var direct="/movies?page="+page;
+    $(location).attr('href', direct);
+    });
+    });
+ 
     function changeRank(item){
         var order_item, order;
         order_item="<%= page.order_item %>";

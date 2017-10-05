@@ -93,9 +93,7 @@ app.post("/movies", function(req, res) {
             });
         });
     });
-
 });
-
 
 app.get("/movies", function(req, res) {
     var cur_number = 1;
@@ -108,7 +106,12 @@ app.get("/movies", function(req, res) {
     var select_string = "";
     console.log(selected);
     console.log(req.query);
+    console.log(req.body);
     if (!empty(req.query)) {
+        if (req.query.page != undefined) {
+            cur_number = req.query.page;
+            page.number = cur_number;
+        }
         if (req.query.order != undefined) {
             order = req.query.order;
             page.order = order;
@@ -165,6 +168,14 @@ app.get("/actors", function(req, res) {
     var select_string = "";
     console.log(req.query);
     if (!empty(req.query)) {
+        if (req.query.page != undefined) {
+            cur_number = req.query.page;
+            page.number = cur_number;
+        }
+        if (req.query.order != undefined) {
+            order = req.query.order;
+            page.order = order;
+        }
         if (req.query.order != undefined) {
             order = req.query.order;
             page.order = order;
@@ -219,6 +230,14 @@ app.get("/directors", function(req, res) {
     var select_string = "";
     console.log(req.query);
     if (!empty(req.query)) {
+        if (req.query.page != undefined) {
+            cur_number = req.query.page;
+            page.number = cur_number;
+        }
+        if (req.query.order != undefined) {
+            order = req.query.order;
+            page.order = order;
+        }
         if (req.query.order != undefined) {
             order = req.query.order;
             page.order = order;
@@ -430,7 +449,6 @@ app.delete("/directors/:id", function(req, res) {
         console.log("query " + sql + " succeeded");
         res.send('/directors');
     });
-
 });
 
 
@@ -446,7 +464,6 @@ app.put("/movies/:id", function(req, res) {
         if (err) throw err;
         console.log("query " + sql + " succeeded");
         res.redirect("/movies/" + id);
-
     });
 });
 

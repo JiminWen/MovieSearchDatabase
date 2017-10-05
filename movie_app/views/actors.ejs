@@ -55,7 +55,7 @@ Select content to be shown
     <td id="directors" class="target">directors coorporated</td>
 </tr>    
 </thead>
-<%  for(var i=0; (i<result.length) && (i<50); i++)  {%>
+<%  for(var i=50*(page.number-1); (i<result.length) && (i<50*page.number); i++)  {%>
 <tr>
     <td>
     <%=  result[i].id  %>
@@ -76,30 +76,44 @@ Select content to be shown
 </tr>    
 <%  } %>   
 </tbody> 
-<tbody class="reactable-pagination">
-<tr>
-   <td colspan=<%= page.items_per_page%>><span class="row-selector"><select
-		class="form-control"><option value="20">20</option>
-			<option value="50">50</option>
-			<option value="100">100</option>
-			<option value="9007199254740991">all</option></select> <!-- react-text: 1523 -->rows
-		per page.<!-- /react-text --></span><span class="pagination-buttons"><a
-		class="reactable-previous-page" href="#page-6">Previous</a><a
-		class="reactable-page-button" href="#page-3">3</a><a
-		class="reactable-page-button" href="#page-4">4</a><a
-		class="reactable-page-button" href="#page-5">5</a><a
-		class="reactable-page-button" href="#page-6">6</a><a
-		class="reactable-page-button reactable-current-page" href="#page-7">7</a></span>
-</td>
-    
-</tr>    
-</tbody>
 </table>
 </div>  
-</div>    
+</div> 
+<div class="btn-group ">
+  <a class="btn btn-primary" id="previous">Previous page</a>
+  <a class="btn btn-primary" id="next">Next page</a>
+</div>
 </center>
 
 <script>
+
+    $(document).ready(function(){
+    $("#previous").click(function(){
+    var page;
+    if( <%= page.number %> > 1){  
+    page = <%= page.number  %> - 1;  
+    }
+    else {
+    page = 1;
+    }
+    var direct="/movies?page="+page;
+    $(location).attr('href', direct);
+  });
+  });
+    
+    $(document).ready(function(){
+    $("#next").click(function(){
+    var page;
+    if( <%= page.number %> < <%= result.length/50 + 1 %>) {  
+    page = <%= page.number  %> + 1;  
+    }
+    else {
+    page = result.length/50 + 1;
+    }
+    var direct="/movies?page="+page;
+    $(location).attr('href', direct);
+    });
+    });
     function changeRank(item){
         var order_item, order;
         order_item="<%= page.order_item %>";
