@@ -10,10 +10,12 @@
     "express-sanitizer": "^1.0.2",
     "is-empty": "^1.2.0",
     "jquery": "^3.2.1",
+    "method-override": "^2.3.10",
     "mysql": "^2.14.1"
   },
   "devDependencies": {},
   "scripts": {
+    "start": "node echo.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

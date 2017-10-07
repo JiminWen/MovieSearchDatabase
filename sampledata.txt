@@ -46,3 +46,48 @@ Movie {
  }
  
  
+ <div class="form-group">
+					<label>Actor 1 name</label>
+					<select id="select_director" name="actor1" value="<%= movie[0].list[0] %>">
+						<% for(var i=0;i<actor.length;i++){ %>
+						<option value="<%= actor[i].actor_name %>"><%= actor[i].actor_name %></option>
+						<% } %>
+					</select>
+					</div>
+					
+					<div class="form-group">
+					<label>Actor 2 name</label>
+					<select id="select_director" name="actor2" value="<%= movie[0].list[0] %>">
+						<% for(var i=0;i<actor.length;i++){ %>
+						<option value="<%= actor[i].actor_name %>"><%= actor[i].actor_name %></option>
+						<% } %>
+					</select>
+					</div>
+					
+					<div class="form-group">
+					<label>Actor 3 name</label>
+					<select id="select_director" name="actor3" value="<%= movie[0].list[0] %>">
+						<% for(var i=0;i<actor.length;i++){ %>
+						<option value="<%= actor[i].actor_name %>"><%= actor[i].actor_name %></option>
+						<% } %>
+					</select>
+					</div>
+					
+					
+// var sql2 = "delete from movie_actor_relation where movie_id=" + id;
+        // con.query(sql2, function(err, result) {
+        //     if (err) throw err;
+        //     console.log("query " + sql2 + " succeeded");
+        //     var sql3 = "INSERT INTO movie_actor_relation(actor_id,movie_id) VALUES ((select id from actor where actor_name='" + body.actor1 + "' limit 1)," + id + ");";
+        //     console.log(sql3);
+        //     con.query(sql3, function(err, result) {
+        //         if (err) throw err;
+        //         console.log("query " + sql3 + " succeeded");
+        //     });
+        // });					
+        
+        
+        
+        
+        mysql -h xq7t6tasopo9xxbs.cbetxkdyhwsb.us-east-1.rds.amazonaws.com -u vf3dgfxm4qb7honp -pik13apmisveyjsis irxg7wfl3xjc3695;
+        heroku addons:create cleardb:ignite --fork=mysql://jiminwen:@jiminwen-movie-search-5424828.com/c9

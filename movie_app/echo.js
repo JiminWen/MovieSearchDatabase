@@ -11,22 +11,52 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(expressSanitizer());
 app.use(methodOverride("_method"));
 var mysql = require('mysql'); //connect to mysql database
-var ip = process.env.IP;
-var con = mysql.createConnection({
-    host: ip,
-    user: "jiminwen",
-    password: "",
-    database: "c9",
-    multipleStatements: true
-});
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
+var db_config ;
+
+var con;
+
+function handleDisconnect() {
+    db_config = {
+        host: "us-cdbr-iron-east-05.cleardb.net",
+        user: "b619a13048e9f7",
+        password: "f8eb3cec",
+        database: "heroku_b56503d115070c6",
+        multipleStatements: true
+    }
+
+    con = mysql.createConnection(db_config); // Recreate the connection, since
+    // the old one cannot be reused.
+
+    con.connect(function(err) { // The server is either down
+        if (err) { // or restarting (takes a while sometimes).
+            console.log('error when connecting to db:', err);
+            setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
+        } // to avoid a hot loop, and to allow our node script to
+    }); // process asynchronous requests in the meantime.
+    // If you're also serving http, display a 503 error.
+    con.on('error', function(err) {
+        console.log('db error', err);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+            handleDisconnect(); // lost due to either server restart, or a
+        }
+        else { // connnection idle timeout (the wait_timeout
+            handleDisconnect(); // server variable configures this)
+        }
+    });
+}
+
+handleDisconnect();
+
+// var con = mysql.createConnection(db_config);
+
+// con.connect(function(err) {
+//     if (err) throw err;
+//     console.log("Connected!");
+// });
 
 app.get("/", function(req, res) {
     res.render("index");
